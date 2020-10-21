@@ -88,7 +88,35 @@ int contains_epsilon(regex r) {
 
 /* calcul la dérivé d'une regex selon un symbol */
 regex derivative(regex r, char c) {
-    return NULL;
+    if (r == NULL) {
+        return r;
+    } else {
+        switch (r->regex_type) {
+            case ZERO:
+                return zero();
+
+            case ONE:
+                return zero();
+
+            case SYMBOL:
+                if (r->symbol == c)
+                    return one();
+                else
+                    return zero();
+
+            case PLUS:
+                return plus(derivative(r->first_son, c), derivative(r->second_son, c));
+
+            case CONCAT:
+                if (contains_epsilon(r))
+                    return plus(cat(derivative(r->first_son, c), r->second_son), derivative(r->second_son, c));
+                else
+                    return cat(derivative(r->first_son, c), r->second_son);
+
+            case STAR:
+                return cat(derivative(r->first_son, c), r);
+        }
+    }
 }
 
 /* renvoie 1 si une regex contient une chaine, et 0 sinon */
@@ -148,4 +176,13 @@ void test_3() {
                                                 cat(zero(), symbol('b')))));
     regex r3 = cat(zero(), plus(symbol('a'), symbol('b')));
     printf("Contient 1 ? %d", contains_epsilon(r3));
+}
+
+// Question 7
+void test_4() {
+    regex r = cat(symbol('a'), symbol('a'));
+    print_regex(derivative(r, 'a'));
+    printf("\n");
+    regex r2 = plus(star(symbol('a')), star(symbol('b')));
+    print_regex(derivative(r2, 'a'));
 }

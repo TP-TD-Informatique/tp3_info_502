@@ -121,8 +121,10 @@ regex derivative(regex r, char c) {
 
 /* renvoie 1 si une regex contient une chaine, et 0 sinon */
 int match(regex r, char *s) {
+    print_regex(r);
+    printf("\n");
     if (*s != '\0') {
-        regex r2 = simplify_better(derivative(r, *s)); // Dérive r avec le premier caractère de s et simplifie
+        regex r2 = derivative(r, *s); // Dérive r avec le premier caractère de s
         match(r2, s + 1); // On test pour l'expression dérivé la chaine à partir du second caractère
     } else {
         if (r->regex_type == ZERO) return 0; // La chaine n'est pas reconnue

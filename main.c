@@ -66,8 +66,14 @@ int main(int argc, char **argv) {
  *
  * Question 3 :
  * 1) L'expression régulière "^(a?){30}a{30}$" reconnaît les mots composés d'une chaine de 0 à 30 'a' suivis de 30 'a'
- * 2) En Kleene cela ferais : "(1 + a + aa + aaa + aaaa + aaaaa + ...) . aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa". La partie entre parenthèse est exactement le mot vide ou 1 a ou 2 a ou 3 a, etc.
+ * 2) En Kleene cela ferais : "(1 + a + aa + aaa + aaaa + aaaaa + ...) . aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa".
+ *    La partie entre parenthèse est exactement le mot vide ou 1 a ou 2 a ou 3 a, etc.
  *
+ * Question 9 :
+ * 1) Les 29 'a' ne sont pas reconnus.
+ * 2) Les 30 'a' ne sont pas reconnus.
+ * En affichant les dérivées de la fontion match, on remarque qu'elles contiennent beaucoup de +0,
+ * donc notre fonction match ne peut pas reconnaître la chaine. Il faudrait simplifier la dérivée
  */
 
 

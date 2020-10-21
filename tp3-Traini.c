@@ -81,7 +81,7 @@ int contains_epsilon(regex r) {
                 return contains_epsilon(r->first_son) || contains_epsilon(r->second_son);
 
             case STAR:
-                return contains_epsilon(r->first_son);
+                return 1;
         }
     }
 }
@@ -121,7 +121,14 @@ regex derivative(regex r, char c) {
 
 /* renvoie 1 si une regex contient une chaine, et 0 sinon */
 int match(regex r, char *s) {
-    return -1;
+    if (*s != '\0') {
+        regex r2 = simplify_better(derivative(r, *s)); // Dérive r avec le premier caractère de s et simplifie
+        match(r2, s + 1); // On test pour l'expression dérivé la chaine à partir du second caractère
+    } else {
+        if (r->regex_type == ZERO) return 0; // La chaine n'est pas reconnue
+        if (r->regex_type == ONE) return 1; // La chaine est reconnue
+        return 0;
+    }
 }
 
 
@@ -157,7 +164,15 @@ regex suffix(regex r) {
 /* la fonction de test qui est appelée lorsqu'aucun argument n'est donné sur
  * la ligne de commandes */
 void test() {
+    regex r = cat(symbol('a'), symbol('a'));
+    print_regex(r);
+    char *s = "aaaa";
+    printf(" reconnaît '%s' ? %d\n", s, match(r, s));
 
+    regex r2 = star(cat(symbol('a'), symbol('b')));
+    print_regex(r2);
+    char *s2 = "abab";
+    printf(" reconnaît '%s' ? %d\n", s2, match(r2, s2));
 }
 
 // Question 5

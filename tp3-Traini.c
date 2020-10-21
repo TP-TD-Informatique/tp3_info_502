@@ -61,7 +61,29 @@ void print_regex(regex r) {
 
 /* renvoie 1 si une regex contient le mot vide, et 0 sinon */
 int contains_epsilon(regex r) {
-    return -1;
+    if (r == NULL) {
+        return 0;
+    } else {
+        switch (r->regex_type) {
+            case ONE:
+                return 1;
+
+            case ZERO:
+                return 0;
+
+            case SYMBOL:
+                return 0;
+
+            case PLUS:
+                return contains_epsilon(r->first_son) || contains_epsilon(r->second_son);
+
+            case CONCAT:
+                return contains_epsilon(r->first_son) || contains_epsilon(r->second_son);
+
+            case STAR:
+                return contains_epsilon(r->first_son);
+        }
+    }
 }
 
 /* calcul la dérivé d'une regex selon un symbol */
@@ -107,15 +129,23 @@ regex suffix(regex r) {
 /* la fonction de test qui est appelée lorsqu'aucun argument n'est donné sur
  * la ligne de commandes */
 void test() {
+
+}
+
+// Question 5
+void test_2() {
     regex r = cat(star(symbol('a')), star(plus(plus(cat(cat(symbol('a'), symbol('a')), symbol('b')),
                                                     cat(symbol('b'), cat(star(symbol('b')), symbol('a')))),
                                                cat(symbol('b'), symbol('b')))));
     print_regex(r);
 }
 
-void test_2() {
-    regex r = cat(star(symbol('a')), star(plus(plus(cat(cat(symbol('a'), symbol('a')), symbol('b')),
-                                                    cat(symbol('b'), cat(star(symbol('b')), symbol('a')))),
-                                               cat(symbol('b'), symbol('b')))));
-    print_regex(r);
+// Question 6
+void test_3() {
+    regex r1 = one();
+    regex r2 = cat(star(symbol('a')), star(plus(plus(cat(cat(symbol('a'), symbol('a')), one()),
+                                                     cat(symbol('b'), cat(star(symbol('b')), symbol('a')))),
+                                                cat(zero(), symbol('b')))));
+    regex r3 = cat(zero(), plus(symbol('a'), symbol('b')));
+    printf("Contient 1 ? %d", contains_epsilon(r3));
 }

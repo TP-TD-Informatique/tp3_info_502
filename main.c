@@ -73,7 +73,10 @@ int main(int argc, char **argv) {
  * 1) Les 29 'a' ne sont pas reconnus.
  * 2) Les 30 'a' ne sont pas reconnus.
  * En affichant les dérivées de la fontion match, on remarque qu'elles contiennent beaucoup de +0,
- * donc notre fonction match ne peut pas reconnaître la chaine. Il faudrait simplifier la dérivée
+ * donc notre fonction match ne peut pas reconnaître la chaine. Il faudrait simplifier la dérivée.
+ *
+ * Question 10 :
+ * Même en simplifiant les dérivée via les fonctions smart_, notre regex (celui pour les 30 'a') ne reconnait pas la chaine de 30 'a'.
  */
 
 

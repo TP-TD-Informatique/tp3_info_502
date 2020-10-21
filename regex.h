@@ -42,19 +42,26 @@ typedef struct regex_s {
 /*
  * des constructeurs pour créer plus facilement des regex
  */
-regex zero() ;
-regex one() ;
-regex symbol(char c) ;
-regex plus(regex r1, regex r2) ;
-regex cat(regex r1, regex r2) ;
-regex star(regex r1) ;
+regex zero();
+
+regex one();
+
+regex symbol(char c);
+
+regex plus(regex r1, regex r2);
+
+regex cat(regex r1, regex r2);
+
+regex star(regex r1);
 
 /*
  * des constructeurs intelligents pour créer des regex
  */
-regex smart_plus(regex r1, regex r2) ;
-regex smart_cat(regex r1, regex r2) ;
-regex smart_star(regex r1) ;
+regex smart_plus(regex r1, regex r2);
+
+regex smart_cat(regex r1, regex r2);
+
+regex smart_star(regex r1);
 
 /* libérer l'espace mémoire d'une regex */
 /* void free_regex(regex r); */
@@ -65,34 +72,35 @@ regex smart_star(regex r1) ;
  * autres fonctions utilitaires
  */
 /* compare les arbres syntaxiques de deux regex */
-int regex_equal(regex r1, regex r2) ;
+int regex_equal(regex r1, regex r2);
 
 /* simplifie une regex en utilisant les égalités de base */
-regex simplify(regex r) ;
+regex simplify(regex r);
 
 /* simplifie une regex en utilisant les égalités de base et la commutativité /
  * idempotence de l'addition */
-regex simplify_better(regex r) ;
+regex simplify_better(regex r);
 
 
 /*
  * à écrire
  */
 /* affiche une regex */
-void print_regex(regex r) ;
-void print_C_regex(regex r) ;
+void print_regex(regex r);
+
+void print_C_regex(regex r);
 
 /* renvoie 1 si une regex contient le mot vide, et 0 sinon */
-int contains_epsilon(regex r) ;
+int contains_epsilon(regex r);
 
 /* calcul la dérivé d'une regex selon un symbol */
-regex derivative(regex r, char c) ;
+regex derivative(regex r, char c);
 
 /* renvoie 1 si une regex contient une chaine, et 0 sinon */
-int match(regex r, char* s) ;
+int match(regex r, char *s);
 
 /* renvoie 1 si le langage d'une regex est vide, et 0 sinon */
-int empty(regex r) ;
+int empty(regex r);
 
 /* renvoie 1 si le langage d'une regex est infini, et 0 sinon */
 int infinite(regex r);

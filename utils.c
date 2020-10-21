@@ -120,7 +120,7 @@ regex copy_regex(regex r) {
 
 /* compare deux arbres syntaxiques de regex */
 int regex_equal(regex r1, regex r2) {
-    switch (r1->regex_type){
+    switch (r1->regex_type) {
         case ZERO:
             return r2->regex_type == ZERO;
             break;
@@ -153,7 +153,7 @@ int regex_equal(regex r1, regex r2) {
 /* vérifie si une regex apparait dans un tableau (pour l'égalité des arbres
  * syntaxiques */
 static int _inside(regex r, regex *T, int nb_regex) {
-    for (int i=0; i<nb_regex; i++) {
+    for (int i = 0; i < nb_regex; i++) {
         if (regex_equal(r, T[i])) return 1;
     }
     return 0;
@@ -166,7 +166,7 @@ static int _inside(regex r, regex *T, int nb_regex) {
  *   sizeT est la taille utilisable du tableau */
 /* NOTE: mutuellement recursive avec simplify_better */
 static void _get_terms(regex r, regex **T, int *nb_regex, int *sizeT) {
-    switch (r->regex_type){
+    switch (r->regex_type) {
         case ZERO:
             break;
         case PLUS:
@@ -183,7 +183,7 @@ static void _get_terms(regex r, regex **T, int *nb_regex, int *sizeT) {
                     /* printf("%p\n", *T); */
                 }
                 (*T)[*nb_regex] = r;
-                *nb_regex = *nb_regex+1;
+                *nb_regex = *nb_regex + 1;
             }
             return;
     }
@@ -201,7 +201,7 @@ static regex simplify_sum(regex r) {
         result = zero();
     } else {
         result = T[0];
-        for (int i=1; i<nb_regex; i++) {
+        for (int i = 1; i < nb_regex; i++) {
             result = plus(result, T[i]);
         }
     }
@@ -225,14 +225,14 @@ regex simplify_better(regex r) {
         exit(1);
     };
     regex r1, r2;
-    switch (r->regex_type){
+    switch (r->regex_type) {
         case ZERO:
         case ONE:
         case SYMBOL:
             return r;
             break;
         case PLUS:
-            return simplify_sum(plus(r->first_son,r->second_son));
+            return simplify_sum(plus(r->first_son, r->second_son));
             break;
         case CONCAT:
             r1 = simplify_better(r->first_son);
@@ -271,7 +271,7 @@ void print_C_regex(regex r) {
         fprintf(stderr, "ERREUR dans print_C_regex\n");
         exit(1);
     };
-    switch (r->regex_type){
+    switch (r->regex_type) {
         case ZERO:
             printf("zero()");
             break;

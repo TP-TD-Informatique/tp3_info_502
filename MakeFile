@@ -1,0 +1,7 @@
+CC=gcc
+CFLAGS=-Wall -Werror -Wextra -pedantic -std=c99 -O3
+
+all: tp3
+
+tp3: *.c
+	$(CC) $(CFLAGS) *.c -o tp3
